@@ -11,6 +11,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using FluentValidation.AspNetCore;
+using System.Reflection;
 
 namespace NS.Api
 {
@@ -27,7 +29,10 @@ namespace NS.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(opt =>
+            {
+                opt.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            });
 
             services.AddDbContext<NSDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("NSDbContext"), x => x.MigrationsAssembly("NS.Data")));
 

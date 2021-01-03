@@ -5,7 +5,6 @@ using NS.DTO.Acount;
 using NS.Api.Helpers;
 using NS.Core.Services;
 using NS.Core.Entities;
-using NS.Api.Validations;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -38,12 +37,6 @@ namespace NS.Api.Controllers
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate(AuthenticateRequest model)
         {
-            var validator = new AuthenticateRequestValidator();
-            var validationResult = await validator.ValidateAsync(model);
-
-            if (!validationResult.IsValid)
-                return BadRequest(validationResult.Errors);
-
             var user = await _userService.Authenticate(model.Username, model.Password);
 
             if (user == null)
@@ -92,16 +85,9 @@ namespace NS.Api.Controllers
             return Ok(userModel);
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] RequestUserModel model)
         {
-            var validator = new RequestUserValidator();
-            var validationResult = await validator.ValidateAsync(model);
-
-            if (!validationResult.IsValid)
-                return BadRequest(validationResult.Errors);
-
             var userToCreate = _mapper.Map<RequestUserModel, User>(model);
 
             var newUser = await _userService.Create(userToCreate, model.Password);
