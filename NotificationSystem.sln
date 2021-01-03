@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NS.Api", "NS.Api\NS.Api.csproj", "{FAE913BC-8D1F-4FF6-ACF9-B9600CF4B79C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NS.Core", "NS.Core\NS.Core.csproj", "{05F8DA4E-A877-420D-B84A-19432C8E183F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NS.Core", "NS.Core\NS.Core.csproj", "{05F8DA4E-A877-420D-B84A-19432C8E183F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NS.DTO", "NS.DTO\NS.DTO.csproj", "{3B0CB0D4-702C-4E34-8691-ACE05E0F9212}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NS.DTO", "NS.DTO\NS.DTO.csproj", "{3B0CB0D4-702C-4E34-8691-ACE05E0F9212}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NS.Data", "NS.Data\NS.Data.csproj", "{A290A0BA-2A5D-4687-A368-0E2DC28D1D53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NS.Data", "NS.Data\NS.Data.csproj", "{A290A0BA-2A5D-4687-A368-0E2DC28D1D53}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{5D259C09-D2ED-4E4A-8EE1-17C95BB3034D}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		SS-NotificationSystem Architecture Review.pptx = SS-NotificationSystem Architecture Review.pptx
 		task for  C#.docx = task for  C#.docx
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NS.Services", "NS.Services\NS.Services.csproj", "{9FDCF250-072F-4D69-B790-D2EE418264D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +42,10 @@ Global
 		{A290A0BA-2A5D-4687-A368-0E2DC28D1D53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A290A0BA-2A5D-4687-A368-0E2DC28D1D53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A290A0BA-2A5D-4687-A368-0E2DC28D1D53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FDCF250-072F-4D69-B790-D2EE418264D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FDCF250-072F-4D69-B790-D2EE418264D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FDCF250-072F-4D69-B790-D2EE418264D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FDCF250-072F-4D69-B790-D2EE418264D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

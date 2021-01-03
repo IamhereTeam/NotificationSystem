@@ -10,3 +10,7 @@
 /NS.Data/obj
 /NS.DTO/bin/Debug/netstandard2.0
 /~$SS-NotificationSystem Architecture Review.pptx
+/NS.Core/bin/Debug/netstandard2.0
+/NS.Data/bin/Debug/netcoreapp3.1
+/NS.Services/bin/Debug/netcoreapp3.1
+/NS.Services/obj
