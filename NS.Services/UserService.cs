@@ -1,5 +1,5 @@
 ﻿using NS.Core;
-using NS.Core.Models;
+using NS.Core.Entities;
 using NS.Core.Services;
 using System.Threading.Tasks;
 

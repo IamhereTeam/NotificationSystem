@@ -1,4 +1,4 @@
-﻿namespace NS.Core.Models
+﻿namespace NS.Core.Entities
 {
     public class User
     {

@@ -1,4 +1,4 @@
-﻿using NS.Core.Models;
+﻿using NS.Core.Entities;
 using System.Threading.Tasks;
 
 namespace NS.Core.Services

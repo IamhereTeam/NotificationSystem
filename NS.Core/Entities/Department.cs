@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace NS.Core.Models
+namespace NS.Core.Entities
 {
     public class Department
     {

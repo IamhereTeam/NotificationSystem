@@ -1,4 +1,4 @@
-﻿using NS.Core.Models;
+﻿using NS.Core.Entities;
 
 namespace NS.Core.Repositories
 {

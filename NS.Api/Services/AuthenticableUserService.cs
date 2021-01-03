@@ -36,7 +36,7 @@ namespace NS.Api.Services
         {
             var user = await _unitOfWork.Users.SingleOrDefaultAsync(x => x.Username == model.Username && x.Password == model.Password);
 
-            var userModel = _mapper.Map<Core.Models.User, UserModel>(user);
+            var userModel = _mapper.Map<Core.Entities.User, UserModel>(user);
 
             // return null if user not found
             if (user == null) return null;

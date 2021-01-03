@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NS.Core.Models;
+using NS.Core.Entities;
 using NS.Data.Configurations;
 
 namespace NS.Data

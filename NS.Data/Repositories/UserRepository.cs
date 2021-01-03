@@ -1,4 +1,4 @@
-﻿using NS.Core.Models;
+﻿using NS.Core.Entities;
 using NS.Core.Repositories;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;

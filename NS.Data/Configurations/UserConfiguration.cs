@@ -1,4 +1,4 @@
-﻿using NS.Core.Models;
+﻿using NS.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
