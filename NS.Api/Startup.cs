@@ -1,3 +1,6 @@
+using NS.Data;
+using NS.Core;
+using AutoMapper;
 using NS.Services;
 using NS.Api.Helpers;
 using NS.Core.Services;
@@ -5,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,16 +29,21 @@ namespace NS.Api
             services.AddCors();
             services.AddControllers();
 
+            services.AddDbContext<NSDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("NSDbContext"), x => x.MigrationsAssembly("NS.Data")));
+
             // configure strongly typed settings object
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             // configure DI for application services
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserService, UserService>();
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "NS.Api", Version = "v1" });
             });
+
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,7 +66,6 @@ namespace NS.Api
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
-            //app.UseAuthorization();
             // custom jwt auth middleware
             app.UseMiddleware<JwtMiddleware>();
 
