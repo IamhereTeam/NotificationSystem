@@ -1,13 +1,16 @@
 ﻿using NS.Core.Entities;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace NS.Core.Services
 {
     public interface IUserService
     {
-        Task<User> GetUserById(int id);
-        Task<User> CreateUser(User newUser);
-        Task UpdateUser(User userToBeUpdated, User user);
-        Task DeleteUser(User user);
+        Task<User> Authenticate(string username, string password);
+        Task<IEnumerable<User>> GetAll();
+        Task<User> GetById(int id);
+        Task<User> Create(User user, string password);
+        Task Update(User user, string password = null);
+        Task Delete(int id);
     }
 }

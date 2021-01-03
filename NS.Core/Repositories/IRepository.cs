@@ -7,8 +7,10 @@ namespace NS.Core.Repositories
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        ValueTask<TEntity> GetByIdAsync(int id);
+        Task<TEntity> GetByIdAsync(int id);
         Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate);
+        void Update(TEntity entity);
         IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
         Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
         Task AddAsync(TEntity entity);
