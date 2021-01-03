@@ -8,7 +8,11 @@ namespace NS.Api.Helpers
     {
         public AutoMapperProfile()
         {
+            // Entities to DTO
             CreateMap<User, UserModel>();
+
+            // DTO to Entities
+            CreateMap<UserModel, User>();
         }
     }
 }

@@ -42,7 +42,7 @@ namespace NS.Services
 
         public Task<User> GetById(int id)
         {
-            return _unitOfWork.Users.GetByIdAsync(id);
+            return _unitOfWork.Users.GetWithDepartmentByIdAsync(id);
         }
 
         public async Task<User> Create(User user, string password)
@@ -66,7 +66,7 @@ namespace NS.Services
             return user;
         }
 
-        public async Task Update(User userParam, string password = null)
+        public async Task<User> Update(User userParam, string password = null)
         {
             var user = await _unitOfWork.Users.GetByIdAsync(userParam.Id);
 
@@ -102,6 +102,8 @@ namespace NS.Services
 
             //_unitOfWork.Users.Update(user); 
             await _unitOfWork.CommitAsync();
+
+            return user;
         }
 
         public async Task Delete(int id)

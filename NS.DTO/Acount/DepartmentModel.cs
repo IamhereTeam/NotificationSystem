@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NS.DTO.Acount
+﻿namespace NS.DTO.Acount
 {
     public class DepartmentModel
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }
