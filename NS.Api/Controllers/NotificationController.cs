@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace NS.Api.Controllers
 {
-    [ApiController]
     [Route("api/Notification")]
-    public class NotificationController : ControllerBase
+    public class NotificationController : NSControllerBase
     {
         private readonly ILogger<NotificationController> _logger;
 

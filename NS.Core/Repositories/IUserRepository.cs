@@ -6,5 +6,6 @@ namespace NS.Core.Repositories
     public interface IUserRepository : IRepository<User>
     {
         Task<User> GetWithDepartmentByIdAsync(int id);
+        Task<User> GetWithDepartmentByUsernameAsync(string username);
     }
 }

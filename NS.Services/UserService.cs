@@ -21,7 +21,7 @@ namespace NS.Services
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 return null;
 
-            var user = await _unitOfWork.Users.SingleOrDefaultAsync(x => x.Username == username);
+            var user = await _unitOfWork.Users.GetWithDepartmentByUsernameAsync(username);
 
             // check if username exists
             if (user == null)
@@ -89,6 +89,9 @@ namespace NS.Services
 
             if (!string.IsNullOrWhiteSpace(userParam.LastName))
                 user.LastName = userParam.LastName;
+
+            if (userParam.DepartmentId != 0)
+                user.DepartmentId = userParam.DepartmentId;
 
             // update password if provided
             if (!string.IsNullOrWhiteSpace(password))

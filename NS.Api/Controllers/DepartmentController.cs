@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace NS.Api.Controllers
 {
-    [ApiController]
     [Route("api/Department")]
-    public class DepartmentController : ControllerBase
+    public class DepartmentController : NSControllerBase
     {
         private readonly ILogger<DepartmentController> _logger;
 

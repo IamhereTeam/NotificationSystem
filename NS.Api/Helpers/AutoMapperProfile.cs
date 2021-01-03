@@ -10,8 +10,10 @@ namespace NS.Api.Helpers
         {
             // Entities to DTO
             CreateMap<User, UserModel>();
+            CreateMap<Department, DepartmentModel>();
 
             // DTO to Entities
+            CreateMap<RequestUserModel, User>();
             CreateMap<UserModel, User>();
         }
     }

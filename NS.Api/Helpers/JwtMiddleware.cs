@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using NS.Core.Services;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
@@ -23,15 +24,15 @@ namespace NS.Api.Helpers
 
         public async Task Invoke(HttpContext context, IUserService userService)
         {
-            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").LastOrDefault();
 
-            if (token != null)
-                await attachUserToContext(context, userService, token);
+            if (!string.IsNullOrWhiteSpace(token))
+                await AttachUserToContext(context, userService, token);
 
             await _next(context);
         }
 
-        private async Task attachUserToContext(HttpContext context, IUserService userService, string token)
+        private async Task AttachUserToContext(HttpContext context, IUserService userService, string token)
         {
             try
             {
@@ -48,10 +49,11 @@ namespace NS.Api.Helpers
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-                var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
 
-                // attach user to context on successful jwt validation
-                context.Items["User"] = await userService.GetById(userId);
+                // var userId = int.Parse(jwtToken.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+                // var user = await userService.GetById(userId);
+
+                context.User = new ClaimsPrincipal(new ClaimsIdentity(jwtToken.Claims, "bearer"));
             }
             catch
             {

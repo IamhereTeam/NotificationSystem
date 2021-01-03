@@ -18,6 +18,13 @@ namespace NS.Data.Repositories
                 .SingleOrDefaultAsync(m => m.Id == id);
         }
 
+        public async Task<User> GetWithDepartmentByUsernameAsync(string usersName)
+        {
+            return await NSDbContext.Users
+                .Include(m => m.Department)
+                .SingleOrDefaultAsync(m => m.Username == usersName);
+        }
+
         private NSDbContext NSDbContext
         {
             get { return Context as NSDbContext; }

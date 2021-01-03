@@ -35,13 +35,9 @@ namespace NS.Api
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             // configure DI for application services
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddNSServices();
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "NS.Api", Version = "v1" });
-            });
+            services.NSAddSwaggerGen();
 
             services.AddAutoMapper(typeof(Startup));
         }
@@ -58,6 +54,9 @@ namespace NS.Api
 
             app.UseHttpsRedirection();
 
+            // custom jwt auth middleware
+            app.UseMiddleware<JwtMiddleware>();
+
             app.UseRouting();
 
             // global cors policy
@@ -65,9 +64,6 @@ namespace NS.Api
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
-
-            // custom jwt auth middleware
-            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

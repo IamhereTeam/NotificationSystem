@@ -10,7 +10,7 @@ using NS.Data;
 namespace NS.Data.Migrations
 {
     [DbContext(typeof(NSDbContext))]
-    [Migration("20210103160922_InitialModel")]
+    [Migration("20210103173503_InitialModel")]
     partial class InitialModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,9 +52,6 @@ namespace NS.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("PasswordHash")

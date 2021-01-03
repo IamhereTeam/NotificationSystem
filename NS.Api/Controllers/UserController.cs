@@ -18,9 +18,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace NS.Api.Controllers
 {
-    [ApiController]
     [Route("api/User")]
-    public class UserController : ControllerBase
+    public class UserController : NSControllerBase
     {
         private readonly IUserService _userService;
         private readonly AppSettings _appSettings;
@@ -72,7 +71,6 @@ namespace NS.Api.Controllers
             throw new NotImplementedException();
         }
 
-        [Helpers.Authorize]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -86,21 +84,25 @@ namespace NS.Api.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var user = await _userService.GetById(id);
+            if (user == null)
+                return NotFound();
+
             var userModel = _mapper.Map<User, UserModel>(user);
 
             return Ok(userModel);
         }
 
+        [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] UserModel model)
+        public async Task<IActionResult> Create([FromBody] RequestUserModel model)
         {
-            var validator = new AddUserValidator();
+            var validator = new RequestUserValidator();
             var validationResult = await validator.ValidateAsync(model);
 
             if (!validationResult.IsValid)
                 return BadRequest(validationResult.Errors);
 
-            var userToCreate = _mapper.Map<UserModel, User>(model);
+            var userToCreate = _mapper.Map<RequestUserModel, User>(model);
 
             var newUser = await _userService.Create(userToCreate, model.Password);
 
@@ -110,16 +112,11 @@ namespace NS.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] UserModel model)
+        public async Task<IActionResult> Update(int id, [FromBody] RequestUserModel model)
         {
-            var validator = new AddUserValidator();
-            var validationResult = await validator.ValidateAsync(model);
+            var userToCreate = _mapper.Map<RequestUserModel, User>(model);
 
-            if (!validationResult.IsValid)
-                return BadRequest(validationResult.Errors);
-
-            var userToCreate = _mapper.Map<UserModel, User>(model);
-
+            userToCreate.Id = id;
             var newUser = await _userService.Update(userToCreate, model.Password);
 
             var newUserModel = _mapper.Map<User, UserModel>(newUser);
@@ -139,14 +136,21 @@ namespace NS.Api.Controllers
         }
 
         // helper methods
-        private string generateJwtToken(Core.Entities.User user)
+        private string generateJwtToken(User user)
         {
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Role, user.Department.Name)
+            };
+
             // generate token that is valid for 7 days
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
+                Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
