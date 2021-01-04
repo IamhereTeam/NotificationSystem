@@ -44,4 +44,12 @@ namespace NS.Api.Helpers
             }
         }
     }
+    public static class NSRole
+    {
+        public const string HR = "HR";
+        public const string Development = "Development";
+        public const string DevOps = "DevOps";
+        public const string Sales = "Sales";
+        public const string Management = "Management";
+    }
 }

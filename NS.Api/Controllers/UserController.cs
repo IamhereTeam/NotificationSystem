@@ -33,8 +33,8 @@ namespace NS.Api.Controllers
             _logger = logger;
         }
 
-        [AllowAnonymous]
         [HttpPost("authenticate")]
+        [AllowAnonymous]
         public async Task<IActionResult> Authenticate(AuthenticateRequest model)
         {
             var user = await _userService.Authenticate(model.Username, model.Password);
@@ -53,9 +53,14 @@ namespace NS.Api.Controllers
         }
 
         [HttpGet("ChangePassword")]
-        public async Task<IActionResult> ChangePassword()
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordModel model)
         {
-            throw new NotImplementedException();
+            var user = new User { Id = SesionUser.Id };
+            var newUser = await _userService.Update(user, model.NewPassword);
+
+            var newUserModel = _mapper.Map<User, UserModel>(newUser);
+
+            return Ok(newUserModel);
         }
 
         [HttpGet("BlockDepartment")]
@@ -65,6 +70,7 @@ namespace NS.Api.Controllers
         }
 
         [HttpGet]
+        [NSAuthorize(NSRole.Management)]
         public async Task<IActionResult> Get()
         {
             var users = await _userService.GetAll();
@@ -74,6 +80,7 @@ namespace NS.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [NSAuthorize(NSRole.Management)]
         public async Task<IActionResult> GetById(int id)
         {
             var user = await _userService.GetById(id);
@@ -86,6 +93,7 @@ namespace NS.Api.Controllers
         }
 
         [HttpPost]
+        [NSAuthorize(NSRole.Management)]
         public async Task<IActionResult> Create([FromBody] RequestUserModel model)
         {
             var userToCreate = _mapper.Map<RequestUserModel, User>(model);
@@ -98,6 +106,7 @@ namespace NS.Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [NSAuthorize(NSRole.Management)]
         public async Task<IActionResult> Update(int id, [FromBody] RequestUserModel model)
         {
             var userToCreate = _mapper.Map<RequestUserModel, User>(model);
@@ -111,6 +120,7 @@ namespace NS.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [NSAuthorize(NSRole.Management)]
         public async Task<IActionResult> Delete(int id)
         {
             if (id == 0)

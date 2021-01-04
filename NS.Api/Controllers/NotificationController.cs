@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using AutoMapper;
+using NS.Core.Entities;
+using NS.Core.Services;
+using NS.DTO.Notification;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace NS.Api.Controllers
 {
@@ -9,16 +12,26 @@ namespace NS.Api.Controllers
     public class NotificationController : NSControllerBase
     {
         private readonly ILogger<NotificationController> _logger;
+        private readonly INotificationService _notification;
+        private readonly IMapper _mapper;
 
-        public NotificationController(ILogger<NotificationController> logger)
+        public NotificationController(INotificationService notification, IMapper mapper, ILogger<NotificationController> logger)
         {
+            _notification = notification;
+            _mapper = mapper;
             _logger = logger;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] CreateNotificationModel model)
         {
-            throw new NotImplementedException();
+            var entity = _mapper.Map<NotificationModel, Notification>(model.Notification);
+
+            var a = SesionUser.Id;
+
+            await _notification.Create(entity, null, null);
+
+            return Ok();
         }
     }
 }

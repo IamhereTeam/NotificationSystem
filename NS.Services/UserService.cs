@@ -96,14 +96,13 @@ namespace NS.Services
             // update password if provided
             if (!string.IsNullOrWhiteSpace(password))
             {
-                byte[] passwordHash, passwordSalt;
-                CreatePasswordHash(password, out passwordHash, out passwordSalt);
+                CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
 
                 user.PasswordHash = passwordHash;
                 user.PasswordSalt = passwordSalt;
             }
 
-            //_unitOfWork.Users.Update(user); 
+            //_unitOfWork.Users.Update(user);
             await _unitOfWork.CommitAsync();
 
             return user;
