@@ -7,6 +7,7 @@ namespace NS.Data
     public class NSDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<UserSettings> UserSettings { get; set; }
         public DbSet<Department> Departments { get; set; }
 
         public NSDbContext(DbContextOptions<NSDbContext> options)
@@ -20,6 +21,9 @@ namespace NS.Data
 
             builder
                 .ApplyConfiguration(new DepartmentConfiguration());
+
+            builder
+                .ApplyConfiguration(new UserSettingsConfiguration());
         }
     }
 }

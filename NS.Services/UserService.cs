@@ -1,5 +1,6 @@
 ﻿using System;
 using NS.Core;
+using System.Linq;
 using NS.Core.Entities;
 using NS.Core.Services;
 using System.Threading.Tasks;
@@ -116,6 +117,26 @@ namespace NS.Services
                 _unitOfWork.Users.Remove(user);
                 await _unitOfWork.CommitAsync();
             }
+        }
+
+        public async Task<UserSettings> ApplySettings(UserSettings userSettings)
+        {
+            var entity = await _unitOfWork.UserSettings.GetByIdAsync(userSettings.Id);
+
+            if (entity == null)
+            {
+                await _unitOfWork.UserSettings.AddAsync(userSettings);
+                await _unitOfWork.CommitAsync();
+                return userSettings;
+            }
+
+            if (userSettings.DisabledDepartments != null && !userSettings.DisabledDepartments.SequenceEqual(entity.DisabledDepartments))
+            {
+                entity.DisabledDepartments = userSettings.DisabledDepartments;
+            }
+
+            await _unitOfWork.CommitAsync();
+            return entity;
         }
 
         // private helper methods

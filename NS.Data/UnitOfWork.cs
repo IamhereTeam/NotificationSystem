@@ -10,6 +10,7 @@ namespace NS.Data
         private readonly NSDbContext _context;
         private UserRepository _userRepository;
         private DepartmentRepository _departmentRepository;
+        private UserSettingsRepository _userSettingsRepository;
 
         public UnitOfWork(NSDbContext context)
         {
@@ -18,6 +19,7 @@ namespace NS.Data
 
         public IUserRepository Users => _userRepository ??= new UserRepository(_context);
         public IDepartmentRepository Departments => _departmentRepository ??= new DepartmentRepository(_context);
+        public IUserSettingsRepository UserSettings => _userSettingsRepository ??= new UserSettingsRepository(_context);
 
         public async Task<int> CommitAsync()
         {

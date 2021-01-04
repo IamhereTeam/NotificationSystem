@@ -8,6 +8,7 @@ namespace NS.Core
     {
         IUserRepository Users { get; }
         IDepartmentRepository Departments { get; }
+        IUserSettingsRepository UserSettings { get; }
         Task<int> CommitAsync();
     }
 }

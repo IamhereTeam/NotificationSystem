@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using NS.Core.Entities;
 using NS.DTO.Acount;
+using NS.Core.Entities;
 
 namespace NS.Api.Helpers
 {
@@ -15,6 +15,7 @@ namespace NS.Api.Helpers
             // DTO to Entities
             CreateMap<RequestUserModel, User>();
             CreateMap<UserModel, User>();
+            CreateMap<UserSettingsModel, UserSettings>();
         }
     }
 }

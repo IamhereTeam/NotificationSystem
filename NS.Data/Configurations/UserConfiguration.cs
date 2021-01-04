@@ -26,6 +26,11 @@ namespace NS.Data.Configurations
                 .HasForeignKey(m => m.DepartmentId);
 
             builder
+                .HasOne(m => m.UserSettings)
+                .WithOne(a => a.User)
+                .HasForeignKey<UserSettings>(m => m.Id);
+
+            builder
                 .ToTable("Users");
         }
     }

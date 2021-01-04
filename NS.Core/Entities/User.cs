@@ -1,15 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-
-namespace NS.Core.Entities
+﻿namespace NS.Core.Entities
 {
     public class User
     {
-        public User()
-        {
-            DisabledDepartments = new Collection<DisabledDepartments>();
-        }
-
         public int Id { get; set; }
 
         public string FirstName { get; set; }
@@ -21,6 +13,7 @@ namespace NS.Core.Entities
 
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
-        public IEnumerable<DisabledDepartments> DisabledDepartments { get; set; }
+
+         public UserSettings UserSettings { get; set; }
     }
 }

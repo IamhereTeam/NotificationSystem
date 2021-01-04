@@ -52,23 +52,6 @@ namespace NS.Api.Controllers
             return Ok(response);
         }
 
-        [HttpGet("ChangePassword")]
-        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordModel model)
-        {
-            var user = new User { Id = SesionUser.Id };
-            var newUser = await _userService.Update(user, model.NewPassword);
-
-            var newUserModel = _mapper.Map<User, UserModel>(newUser);
-
-            return Ok(newUserModel);
-        }
-
-        [HttpGet("BlockDepartment")]
-        public async Task<IActionResult> BlockDepartment()
-        {
-            throw new NotImplementedException();
-        }
-
         [HttpGet]
         [NSAuthorize(NSRole.Management)]
         public async Task<IActionResult> Get()
