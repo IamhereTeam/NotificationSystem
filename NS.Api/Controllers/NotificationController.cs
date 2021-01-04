@@ -25,11 +25,9 @@ namespace NS.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] CreateNotificationModel model)
         {
-            var entity = _mapper.Map<NotificationModel, Notification>(model.Notification);
+            var notification = _mapper.Map<NotificationModel, Notification>(model.Notification);
 
-            var a = SesionUser.Id;
-
-            await _notification.Create(entity, null, null);
+            await _notification.Create(SesionUser.Id, notification, model.Departments, model.Users);
 
             return Ok();
         }

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace NS.DTO.Acount
+﻿namespace NS.DTO.Acount
 {
     public class UserSettingsModel
     {
