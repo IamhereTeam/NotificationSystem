@@ -8,17 +8,31 @@ using System.Collections.Generic;
 namespace NS.Services
 {
     public class NotificationService : INotificationService
-    { 
+    {
         private readonly IUnitOfWork _unitOfWork;
         public NotificationService(IUnitOfWork unitOfWork)
         {
             this._unitOfWork = unitOfWork;
         }
 
-        public async Task Create(int id, Notification notification, IEnumerable<int> Departments, IEnumerable<int> Users)
+        public async Task<Notification> Create(Notification notification)
         {
-            var user = await _unitOfWork.Users.GetWithDepartmentByIdAsync(id);
-            var userSettings = await _unitOfWork.UserSettings.GetByIdAsync(id);
+            await _unitOfWork.Notification.AddAsync(notification);
+            await _unitOfWork.CommitAsync();
+
+            return notification;
+        }
+
+        public async Task Send(Notification notification, IEnumerable<int> Departments, IEnumerable<int> Users)
+        {
+            var user = await _unitOfWork.Users.GetWithDepartmentByIdAsync(notification.UserId);
+            var senderDepartment = user.Department;
+
+
+            var sx =_unitOfWork.Users.Find(u => u.DepartmentId == 15 && !u.UserSettings.DisabledDepartments.Any(x => x == senderDepartment.Id));
+
+
+           // var userSettings = await _unitOfWork.UserSettings.GetByIdAsync(id);
 
             var allUsers = Users?.ToList() ?? new List<int>();
 
@@ -30,19 +44,7 @@ namespace NS.Services
 
             List<Notification> notifications = new List<Notification>();
 
-            //foreach (var to in allUsers)
-            //{
-            //    notifications.Add(new Notification
-            //    {
-            //        To = to,
-            //        FromUserId = user.Id,
-            //        FromUserName = user.Username,
-            //        FromDepartmentId = user.DepartmentId,
-            //        FromDepartmentName = user.Department.Name,
-            //        Subject = notification.Subject,
-            //        Message = notification.Message
-            //    });
-            //}
+
 
             await _unitOfWork.Notification.AddRangeAsync(notifications);
 

@@ -6,6 +6,7 @@ namespace NS.Core.Services
 {
     public interface INotificationService
     {
-        Task Create(int id, Notification notification, IEnumerable<int> Departments, IEnumerable<int> Users);
+        Task<Notification> Create(Notification notification);
+        Task Send(Notification notification, IEnumerable<int> Departments, IEnumerable<int> Users);
     }
 }

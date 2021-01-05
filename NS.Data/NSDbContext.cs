@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NS.Core.Entities;
+﻿using NS.Core.Entities;
 using NS.Data.Configurations;
+using Microsoft.EntityFrameworkCore;
 
 namespace NS.Data
 {
@@ -9,6 +9,8 @@ namespace NS.Data
         public DbSet<User> Users { get; set; }
         public DbSet<UserSettings> UserSettings { get; set; }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<UserNotification> UserNotifications { get; set; }
 
         public NSDbContext(DbContextOptions<NSDbContext> options)
             : base(options)
@@ -24,6 +26,14 @@ namespace NS.Data
 
             builder
                 .ApplyConfiguration(new UserSettingsConfiguration());
+
+            builder
+                .ApplyConfiguration(new NotificationConfiguration());
+
+            builder
+                .ApplyConfiguration(new UserNotificationConfiguration());
+
+            builder.Seed();
         }
     }
 }

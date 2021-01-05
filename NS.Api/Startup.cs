@@ -1,18 +1,14 @@
 using NS.Data;
-using NS.Core;
 using AutoMapper;
-using NS.Services;
 using NS.Api.Helpers;
-using NS.Core.Services;
-using Microsoft.OpenApi.Models;
+using System.Reflection;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using FluentValidation.AspNetCore;
-using System.Reflection;
 
 namespace NS.Api
 {

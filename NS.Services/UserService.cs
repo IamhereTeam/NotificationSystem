@@ -55,8 +55,7 @@ namespace NS.Services
             if (await _unitOfWork.Users.AnyAsync(x => x.Username == user.Username))
                 throw new ValidationException("Username \"" + user.Username + "\" is already taken");
 
-            byte[] passwordHash, passwordSalt;
-            CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
 
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
