@@ -32,7 +32,7 @@ namespace NS.Data.Configurations
                    new User { Id = 6,   FirstName = "Queen",    LastName = "Elizabeth",     Username = "queen",     DepartmentId = 2, PasswordHash = passwordHash, PasswordSalt = passwordSalt },
                    new User { Id = 7,   FirstName = "Winston",  LastName = "Churchill",     Username = "winston",   DepartmentId = 2, PasswordHash = passwordHash, PasswordSalt = passwordSalt },
                    new User { Id = 8,   FirstName = "Donald",   LastName = "Trump",         Username = "donald",    DepartmentId = 3, PasswordHash = passwordHash, PasswordSalt = passwordSalt },
-                   new User { Id = 9,   FirstName = "Muhammad", LastName = "Ali",           Username = "muhammad",  DepartmentId = 3, PasswordHash = passwordHash, PasswordSalt = passwordSalt },
+                   new User { Id = 9,   FirstName = "Muhammad", LastName = "Ali",           Username = "muhammad",  DepartmentId = 4, PasswordHash = passwordHash, PasswordSalt = passwordSalt },
                    new User { Id = 10,  FirstName = "Elon",     LastName = "Musk",          Username = "elon",      DepartmentId = 5, PasswordHash = passwordHash, PasswordSalt = passwordSalt },
                    new User { Id = 11,  FirstName = "Jeff",     LastName = "Bezos",         Username = "jeff",      DepartmentId = 5, PasswordHash = passwordHash, PasswordSalt = passwordSalt },
                    new User { Id = 12,  FirstName = "Bill",     LastName = "Gates",         Username = "bill",      DepartmentId = 5, PasswordHash = passwordHash, PasswordSalt = passwordSalt }

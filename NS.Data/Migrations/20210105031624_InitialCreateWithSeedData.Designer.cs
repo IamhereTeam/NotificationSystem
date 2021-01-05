@@ -10,8 +10,8 @@ using NS.Data;
 namespace NS.Data.Migrations
 {
     [DbContext(typeof(NSDbContext))]
-    [Migration("20210105010815_InitialDataTable")]
-    partial class InitialDataTable
+    [Migration("20210105031624_InitialCreateWithSeedData")]
+    partial class InitialCreateWithSeedData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -206,7 +206,7 @@ namespace NS.Data.Migrations
                         new
                         {
                             Id = 9,
-                            DepartmentId = 3,
+                            DepartmentId = 4,
                             FirstName = "Muhammad",
                             LastName = "Ali",
                             PasswordHash = new byte[] { 97, 127, 134, 9, 60, 192, 236, 120, 228, 127, 140, 151, 18, 101, 11, 46, 225, 9, 109, 124, 40, 88, 98, 221, 110, 199, 80, 12, 209, 52, 143, 102, 164, 224, 61, 172, 140, 86, 109, 116, 235, 165, 95, 111, 227, 173, 37, 120, 3, 231, 55, 102, 95, 193, 38, 81, 114, 135, 58, 109, 44, 162, 68, 42 },

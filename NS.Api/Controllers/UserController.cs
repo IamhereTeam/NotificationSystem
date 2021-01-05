@@ -97,6 +97,8 @@ namespace NS.Api.Controllers
             userToCreate.Id = id;
             var newUser = await _userService.Update(userToCreate, model.Password);
 
+            //ToDo: If the account’s department is changed then other managers must be notified.
+
             var newUserModel = _mapper.Map<User, UserModel>(newUser);
 
             return Ok(newUserModel);
