@@ -1,5 +1,4 @@
 ﻿using NS.Core;
-using System.Linq;
 using NS.Core.Entities;
 using NS.Core.Services;
 using System.Threading.Tasks;
@@ -13,6 +12,13 @@ namespace NS.Services
         public NotificationService(IUnitOfWork unitOfWork)
         {
             this._unitOfWork = unitOfWork;
+        }
+
+        public async Task<IEnumerable<UserNotification>> GetByUserId(int id)
+        {
+            var userNotifications = await _unitOfWork.UserNotification.GetByUserId(id);
+
+            return userNotifications;
         }
 
         public async Task<Notification> Create(Notification notification)

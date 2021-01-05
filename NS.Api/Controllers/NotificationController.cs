@@ -5,6 +5,7 @@ using NS.DTO.Notification;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 
 namespace NS.Api.Controllers
 {
@@ -34,5 +35,15 @@ namespace NS.Api.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var data = await _notification.GetByUserId(SesionUser.Id);
+            var dataModel = _mapper.Map<IEnumerable<UserNotification>, IEnumerable<UserNotificationModel>>(data);
+
+            return Ok(dataModel);
+        }
+
     }
 }

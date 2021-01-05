@@ -25,10 +25,9 @@ namespace NS.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddControllers().AddFluentValidation(opt =>
-            {
-                opt.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-            });
+            services.AddControllers()
+                .AddFluentValidation(opt => opt.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()))
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<NSDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("NSDbContext"), x => x.MigrationsAssembly("NS.Data")));
 
