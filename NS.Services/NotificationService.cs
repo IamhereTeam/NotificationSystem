@@ -23,30 +23,28 @@ namespace NS.Services
             return notification;
         }
 
-        public async Task Send(Notification notification, IEnumerable<int> Departments, IEnumerable<int> Users)
+        public async Task Send(Notification notification, IEnumerable<int> departments, IEnumerable<int> users)
         {
             var user = await _unitOfWork.Users.GetWithDepartmentByIdAsync(notification.UserId);
             var senderDepartment = user.Department;
 
+            // all users who are allowed to receive notifications
+            var notificationEnabledUsers = await _unitOfWork.Users.GetNotificationEnabledUsers(senderDepartment.Id, departments, users);
 
-            var sx =_unitOfWork.Users.Find(u => u.DepartmentId == 15 && !u.UserSettings.DisabledDepartments.Any(x => x == senderDepartment.Id));
+            var userNotifications = new List<UserNotification>();
 
-
-           // var userSettings = await _unitOfWork.UserSettings.GetByIdAsync(id);
-
-            var allUsers = Users?.ToList() ?? new List<int>();
-
-            foreach (var department in Departments)
+            foreach (var u in notificationEnabledUsers)
             {
-                var users = _unitOfWork.Users.Find(x => x.DepartmentId == department).Select(x => x.Id);
-                allUsers.AddRange(users);
+                var userNotification = new UserNotification
+                {
+                    NotificationId = notification.Id,
+                    UserId = u.Id
+                };
+
+                userNotifications.Add(userNotification);
             }
 
-            List<Notification> notifications = new List<Notification>();
-
-
-
-            await _unitOfWork.Notification.AddRangeAsync(notifications);
+            await _unitOfWork.UserNotification.AddRangeAsync(userNotifications);
 
             await _unitOfWork.CommitAsync();
         }

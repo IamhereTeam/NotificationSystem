@@ -12,6 +12,7 @@ namespace NS.Data
         private DepartmentRepository _departmentRepository;
         private UserSettingsRepository _userSettingsRepository;
         private NotificationRepository _notificationRepository;
+        private UserNotificationRepository _userNotificationRepository;
 
         public UnitOfWork(NSDbContext context)
         {
@@ -22,6 +23,7 @@ namespace NS.Data
         public IDepartmentRepository Departments => _departmentRepository ??= new DepartmentRepository(_context);
         public IUserSettingsRepository UserSettings => _userSettingsRepository ??= new UserSettingsRepository(_context);
         public INotificationRepository Notification => _notificationRepository ??= new NotificationRepository(_context);
+        public IUserNotificationRepository UserNotification => _userNotificationRepository ??= new UserNotificationRepository(_context);
 
         public async Task<int> CommitAsync()
         {

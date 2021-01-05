@@ -10,6 +10,7 @@ namespace NS.Core
         IDepartmentRepository Departments { get; }
         IUserSettingsRepository UserSettings { get; }
         INotificationRepository Notification { get; }
+        IUserNotificationRepository UserNotification { get; }
         Task<int> CommitAsync();
     }
 }

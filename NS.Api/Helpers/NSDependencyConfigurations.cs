@@ -13,6 +13,8 @@ namespace NS.Api.Helpers
             // configure DI for application services
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<INotificationService, NotificationService>();
 
             return services;
         }
