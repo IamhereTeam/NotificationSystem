@@ -2,6 +2,7 @@
 using NS.Core.Entities;
 using NS.Core.Services;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace NS.Services
 {
@@ -13,32 +14,19 @@ namespace NS.Services
             this._unitOfWork = unitOfWork;
         }
 
-        public async Task<User> CreateUser(User newUser)
+        public Task<IEnumerable<Department>> GetAll()
         {
-            await _unitOfWork.Users.AddAsync(newUser);
-            await _unitOfWork.CommitAsync();
-            return newUser;
+            return _unitOfWork.Departments.GetAllAsync();
         }
 
-        public async Task DeleteUser(User user)
+        public async Task Delete(int id)
         {
-            _unitOfWork.Users.Remove(user);
-            await _unitOfWork.CommitAsync();
-        }
-
-        public async Task<User> GetUserById(int id)
-        {
-            return await _unitOfWork.Users
-                .GetWithDepartmentByIdAsync(id);
-        }
-
-        public async Task UpdateUser(User userToBeUpdated, User user)
-        {
-            userToBeUpdated.FirstName = user.FirstName;
-            userToBeUpdated.LastName = user.LastName;
-            userToBeUpdated.DepartmentId = user.DepartmentId;
-
-            await _unitOfWork.CommitAsync();
+            var department = await _unitOfWork.Departments.GetByIdAsync(id);
+            if (department != null)
+            {
+                _unitOfWork.Departments.Remove(department);
+                await _unitOfWork.CommitAsync();
+            }
         }
     }
 }

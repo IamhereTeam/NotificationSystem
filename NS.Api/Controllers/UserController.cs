@@ -56,10 +56,10 @@ namespace NS.Api.Controllers
         [NSAuthorize(NSRole.Management)]
         public async Task<IActionResult> Get()
         {
-            var users = await _userService.GetAll();
-            var userModels = _mapper.Map<IEnumerable<User>, IEnumerable<UserModel>>(users);
+            var data = await _userService.GetAll();
+            var dataModel = _mapper.Map<IEnumerable<User>, IEnumerable<UserModel>>(data);
 
-            return Ok(userModels);
+            return Ok(dataModel);
         }
 
         [HttpGet("{id}")]
