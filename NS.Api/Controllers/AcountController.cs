@@ -38,15 +38,26 @@ namespace NS.Api.Controllers
             return Ok(newUserModel);
         }
 
-        [HttpPost("ApplySettings")]
+        [HttpPost("Settings")]
         public async Task<IActionResult> ApplySettings([FromBody] UserSettingsModel model)
         {
             var entity = _mapper.Map<UserSettingsModel, UserSettings>(model);
             entity.Id = SesionUser.Id;
 
             var updatedEntity = await _userService.ApplySettings(entity);
+            
+            var result = _mapper.Map<UserSettings, UserSettingsModel>(updatedEntity);
 
-            return Ok(updatedEntity);
+            return Ok(result);
+        }
+
+        [HttpGet("Settings")]
+        public async Task<IActionResult> GetSettings()
+        {
+            var entity = await _userService.GetSettings(SesionUser.Id);
+            var result = _mapper.Map<UserSettings, UserSettingsModel>(entity);
+
+            return Ok(result);
         }
 
         [HttpGet]
@@ -61,13 +72,13 @@ namespace NS.Api.Controllers
             return Ok(userModel);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update([FromBody] RequestUserModel model)
+        [HttpPost]
+        public async Task<IActionResult> Update([FromBody] UpdateUserModel model)
         {
             // user is not allowed to update department for himself
             model.DepartmentId = 0;
 
-            var userToCreate = _mapper.Map<RequestUserModel, User>(model);
+            var userToCreate = _mapper.Map<UpdateUserModel, User>(model);
 
             userToCreate.Id = SesionUser.Id;
             var newUser = await _userService.Update(userToCreate, model.Password);

@@ -33,14 +33,14 @@ namespace NS.Api.Controllers
             _logger = logger;
         }
 
-        [HttpPost("authenticate")]
+        [HttpPost("Authenticate")]
         [AllowAnonymous]
         public async Task<IActionResult> Authenticate(AuthenticateRequest model)
         {
             var user = await _userService.Authenticate(model.Username, model.Password);
 
             if (user == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
+                return Unauthorized(new { message = "Username or password is incorrect" });
 
             // authentication successful so generate jwt token
             var token = generateJwtToken(user);

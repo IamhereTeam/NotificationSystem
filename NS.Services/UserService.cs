@@ -118,6 +118,18 @@ namespace NS.Services
             }
         }
 
+        public async Task<UserSettings> GetSettings(int userId)
+        {
+            var entity = await _unitOfWork.UserSettings.GetByIdAsync(userId);
+
+            if (entity == null)
+            {
+                // defoult settings
+                return new UserSettings() { Id = userId };
+            }
+            return entity;
+        }
+
         public async Task<UserSettings> ApplySettings(UserSettings userSettings)
         {
             var entity = await _unitOfWork.UserSettings.GetByIdAsync(userSettings.Id);

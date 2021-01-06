@@ -26,7 +26,6 @@ namespace NS.Api.Controllers
         }
 
         [HttpGet]
-        [NSAuthorize(NSRole.Management)]
         public async Task<IActionResult> Get()
         {
             var data = await _departmentService.GetAll();
@@ -36,12 +35,14 @@ namespace NS.Api.Controllers
         }
 
         [HttpPost]
+        [NSAuthorize(NSRole.Management)]
         public async Task<IActionResult> Post(DepartmentModel model)
         {
             throw new NotImplementedException();
         }
 
         [HttpPut("{id}")]
+        [NSAuthorize(NSRole.Management)]
         public async Task<IActionResult> Put(int id, DepartmentModel model)
         {
             throw new NotImplementedException();

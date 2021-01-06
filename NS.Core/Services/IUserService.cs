@@ -13,6 +13,7 @@ namespace NS.Core.Services
         Task<User> Update(User user, string password = null);
         Task Delete(int id);
 
+        Task<UserSettings> GetSettings(int userId);
         Task<UserSettings> ApplySettings(UserSettings userSettings);
     }
 }

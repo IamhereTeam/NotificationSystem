@@ -12,6 +12,7 @@ namespace NS.Api.Helpers
             // Entities to DTO
             CreateMap<User, UserModel>();
             CreateMap<Department, DepartmentModel>();
+            CreateMap<UserSettings, UserSettingsModel>();
             CreateMap<UserNotification, UserNotificationModel>()
                 .ForMember(x => x.Subject, opt => opt.MapFrom(source => source.Notification.Subject))
                 .ForMember(x => x.Message, opt => opt.MapFrom(source => source.Notification.Message))
@@ -20,6 +21,7 @@ namespace NS.Api.Helpers
 
             // DTO to Entities
             CreateMap<RequestUserModel, User>();
+            CreateMap<UpdateUserModel, User>();
             CreateMap<UserModel, User>();
             CreateMap<UserSettingsModel, UserSettings>();
             CreateMap<NotificationModel, Notification>();
