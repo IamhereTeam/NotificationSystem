@@ -1,5 +1,7 @@
 # Notification System
 
+https://github.com/IamhereTeam/NotificationSystem.Client
+
 dotnet ef --startup-project NS.Api/NS.Api.csproj migrations add InitialCreateWithSeedData -p NS.Data/NS.Data.csproj
 <br>
 dotnet ef --startup-project NS.Api/NS.Api.csproj database update
